@@ -247,7 +247,6 @@ void FullSystem::printResult(std::string file)
 	boost::unique_lock<boost::mutex> lock(trackMutex);
 	boost::unique_lock<boost::mutex> crlock(shellPoseMutex);
 
-  int idx = -1;
   double fps = 60.0;
 
 	std::ofstream myfile;
@@ -256,7 +255,6 @@ void FullSystem::printResult(std::string file)
 
 	for(FrameShell* s : allFrameHistory)
 	{
-    idx++;
 		if(!s->poseValid) continue;
 
 		// if(setting_onlyLogKFPoses && s->marginalizedAt == s->id) continue;
@@ -269,7 +267,7 @@ void FullSystem::printResult(std::string file)
 		// 	" " << s->camToWorld.so3().unit_quaternion().w() << "\n";
 
     // Print in ASL format.
-    double sim_time = static_cast<double>(idx) / fps;
+    double sim_time = static_cast<double>(s->incoming_id) / fps;
 		myfile << sim_time <<
         "," << s->camToWorld.translation()(0) <<
         "," << s->camToWorld.translation()(1) <<

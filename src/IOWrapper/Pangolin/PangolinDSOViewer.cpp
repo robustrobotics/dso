@@ -504,7 +504,6 @@ void PangolinDSOViewer::publishCamPose(FrameShell* frame,
 #if 1
   // Print live pose to see if it's different than what's printed in
   // FullSystem::printResult().
-  static int idx = 0;
   double fps = 60.0;
 	std::ofstream myfile;
 	myfile.open("live_result.txt", std::ios_base::app);
@@ -512,7 +511,7 @@ void PangolinDSOViewer::publishCamPose(FrameShell* frame,
 
   if (frame->poseValid) {
     // Print in ASL format.
-    double sim_time = static_cast<double>(idx) / fps;
+    double sim_time = static_cast<double>(frame->incoming_id) / fps;
 		myfile << sim_time <<
         "," << frame->camToWorld.translation()(0) <<
         "," << frame->camToWorld.translation()(1) <<
@@ -522,9 +521,7 @@ void PangolinDSOViewer::publishCamPose(FrameShell* frame,
         "," << frame->camToWorld.so3().unit_quaternion().y() <<
         "," << frame->camToWorld.so3().unit_quaternion().z() << "\n";
   }
-
 	myfile.close();
-  idx++;
 #endif
 
   return;
