@@ -141,6 +141,30 @@ void settingsDefault(int preset)
 		setting_logStuff = false;
 	}
 
+	if((preset == 4) || (preset == 5))
+	{
+		printf("wng settings:\n"
+				"- %s real-time enforcing\n"
+				"- 50 active points\n"
+				"- 4-6 active frames\n"
+				"- 1-4 LM iteration each KF\n"
+				"- 424 x 320 image resolution\n", preset==4 ? "no " : "1x");
+
+		playbackSpeed = (preset==4 ? 0 : 1);
+		preload = preset==5;
+		setting_desiredImmatureDensity = 100;
+		setting_desiredPointDensity = 50;
+		setting_minFrames = 4;
+		setting_maxFrames = 6;
+		setting_maxOptIterations=4;
+		setting_minOptIterations=1;
+
+		// benchmarkSetting_width = 424;
+		// benchmarkSetting_height = 320;
+
+		setting_logStuff = false;
+	}
+
 	printf("==============================================\n");
 }
 
