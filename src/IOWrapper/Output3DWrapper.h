@@ -160,6 +160,11 @@ public:
          */
         virtual void publishCamPose(FrameShell* frame, CalibHessian* HCalib) {}
 
+        // Different publish method that doesn't rely on FrameShell to get around
+        // pesky alignment issues.
+        virtual void publishCamPose(const uint32_t id, const double time,
+                                    const SE3& pose, CalibHessian* Hcalib) {}
+
 
 
 

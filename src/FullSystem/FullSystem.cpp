@@ -903,8 +903,16 @@ void FullSystem::addActiveFrame( ImageAndExposure* image, int id )
 
 
 
-        for(IOWrap::Output3DWrapper* ow : outputWrapper)
-            ow->publishCamPose(fh->shell, &Hcalib);
+    for(IOWrap::Output3DWrapper* ow : outputWrapper) {
+      ow->publishCamPose(fh->shell, &Hcalib);
+
+      // Use different publish method to get around pesky alignment issues.
+      if (fh->shell->poseValid) {
+        ow->publishCamPose(fh->shell->incoming_id, fh->shell->timestamp,
+                           fh->shell->camToWorld, &Hcalib);
+      }
+    }
+
 
 
 
