@@ -1169,7 +1169,7 @@ void FullSystem::makeKeyFrame( FrameHessian* fh)
 	}
 
 
-	debugPlot("post Optimize");
+	// debugPlot("post Optimize");
 
 
 
