@@ -312,7 +312,12 @@ void EnergyFunctional::resubstituteFPt(
 		}
 
 		p->data->step = - b*p->HdiF;
-		assert(std::isfinite(p->data->step));
+    if (!std::isfinite(p->data->step)) {
+      // Don't crash when infinites are encountered.
+			p->data->step = 0;
+			continue;
+    }
+		// assert(std::isfinite(p->data->step));
 	}
 }
 
