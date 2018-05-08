@@ -148,6 +148,11 @@ public:
          */
         virtual void publishKeyframes(std::vector<FrameHessian*> &frames, bool final, CalibHessian* HCalib) {}
 
+        // Different publish method to get around pesky alignment issues.
+        virtual void publishKeyframes(std::vector<FrameHessian*> &frames,
+                                      const std::vector<SE3, Eigen::aligned_allocator<SE3> >& poses,
+                                      bool final, CalibHessian* HCalib) {}
+
 
 
 

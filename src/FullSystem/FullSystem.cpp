@@ -1199,6 +1199,12 @@ void FullSystem::makeKeyFrame( FrameHessian* fh)
     {
         ow->publishGraph(ef->connectivityMap);
         ow->publishKeyframes(frameHessians, false, &Hcalib);
+
+        std::vector<SE3, Eigen::aligned_allocator<SE3> > poses(frameHessians.size());
+        for (int ii = 0; ii < frameHessians.size(); ++ii) {
+          poses[ii] = frameHessians[ii]->shell->camToWorld;
+        }
+        ow->publishKeyframes(frameHessians, poses, false, &Hcalib);
     }
 
 
